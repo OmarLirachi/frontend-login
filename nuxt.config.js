@@ -62,7 +62,7 @@ export default {
       local: {
         cookie: false,
         user: {
-          property: user
+          property: 'user'
         },
         token: {
           property: 'token',

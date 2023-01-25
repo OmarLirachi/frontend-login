@@ -4,6 +4,7 @@
 
 <script>
 export default {
+    auth: true,
     layout: 'dashboard'
 }
 </script>

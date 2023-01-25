@@ -51,10 +51,23 @@ export default {
         }
     },
     methods: {
-        loginBackend () {
+        async loginBackend () {
             const valid = this.$refs.formLogin.validate()
             if (valid) {
-                alert('presione el btn')
+                const sendData = {
+                    email: this.correoElectronico,
+                    password: this.password
+                }
+                await this.$auth.loginWith('local', {
+                    data: sendData
+                }).then(async (res)=> {
+                    console.log('respuesta del back', res)
+                    if (res.data.error == null) {
+                        this.$router.push('/dashboard')
+                    }
+                }).catch((error)=> {
+                    console.log('error: ', error)
+                })
             }else {
                 alert('no cumpliste las reglas')
             }
