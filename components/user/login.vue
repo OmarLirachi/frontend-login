@@ -1,10 +1,10 @@
 <template>
     <v-card class="cardLogin">
-        <v-card-title class="title">Wuelcon to el barsa</v-card-title>
+        <v-card-title class="title">Bienvenidos</v-card-title>
         <v-card-text>
             <v-row justify="center" align="center">
                 <v-col cols="4" justify="center" align-self="center">
-                    <img src="../../assets/images/goku.png" class="imgLogin">
+                    <img src="../../assets/images/rei.png" class="imgLogin">
                 </v-col>
                 <v-col cols="8" justify="center" align-self="center">
                     <v-form ref="formLogin">
@@ -78,7 +78,7 @@ export default {
 
 <style scoped>
     .cardLogin{
-        background-color: #4894d3;
+        background-color: #51d1f6;
         border-radius: 10px;
         width: 500px;
         height: 300px;
@@ -90,14 +90,14 @@ export default {
     }
 
     .btnLogin{
-        background-color: #cc3737!important;
-        color: rgb(255, 255, 255);
+        background-color: #004173!important;
+        color: #FFFFFF;
     }
 
     .title {
         font-size: 30px;
         justify-content: center;
-        color: #cc3737;
+        color: #004173;
         font-weight: 700;
     }
 </style>
