@@ -60,7 +60,7 @@ export default {
                 }
                 await this.$auth.loginWith('local', {
                     data: sendData
-                }).then(async (res)=> {
+                }).then( async (res)=> {
                     console.log('respuesta del back', res)
                     if (res.data.error == null) {
                         this.$router.push('/dashboard')
