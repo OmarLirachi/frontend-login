@@ -11,7 +11,7 @@
             <template #[`item.actions`]="{item}">
                 <v-row class="renglon">
                     <v-col cols="6">
-                        <v-btn icon color="orange" @click="update"> 
+                        <v-btn icon color="orange" @click="dialogUpdate(item)"> 
                             <v-icon>mdi-human-edit</v-icon>
                         </v-btn>
                     </v-col>
@@ -99,6 +99,50 @@
             </v-card-actions>
         </v-card>
     </v-dialog>
+    <v-dialog v-model="openDialogUpdate" 
+              width="800" 
+              height="500"
+              persistent>
+        <v-card>
+            <v-card-title>Datos</v-card-title>
+            <v-card-text>
+                <v-form ref="formUpdate">
+                    <v-text-field 
+                    v-model="nameUpdate"
+                    type="text" 
+                    placeholder="Name:" 
+                    label="Name">
+                    </v-text-field>
+                    <v-text-field 
+                    v-model="lastnameUpdate"
+                    type="text" 
+                    placeholder="LastName:" 
+                    label="LastName">
+                    </v-text-field>
+                    <v-text-field 
+                    v-model="passwordUpdate"
+                    type="password" 
+                    placeholder="Password:" 
+                    label="Password">
+                    </v-text-field>
+                </v-form>
+            </v-card-text>
+
+            <v-card-actions style="width:100%; display:flex; flex-direction:column;">
+                <v-row style="width: 100%; margin-top: 5px; margin-bottom: 10px;">
+                    <v-btn block color="green" @click="actualizaUsuario">
+                    Actualizar
+                    </v-btn>
+                </v-row>
+
+                <v-row style="width: 100%; margin-top: 5px; margin-bottom: 10px;">
+                    <v-btn block color="red" @click="openDialogUpdate = false">
+                    Cancelar
+                    </v-btn>
+                </v-row>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </v-col>
 </template>
 
@@ -147,7 +191,12 @@ export default{
             idEraseUser: '',
             openDialogErase: false,
             newemail: '',
-            admin: 'adminOmarin'
+            admin: 'adminOmarin',
+            openDialogUpdate: false,
+            nameUpdate: '',
+            lastnameUpdate: '',
+            passwordUpdate: '',
+            datos: {}
         }
     },
     mounted () {
@@ -229,8 +278,39 @@ export default{
             this.admin = item.name
             this.openDialogErase = true
         },
-        update () {
-            this.openDialog = true
+        dialogUpdate( item ) {
+            this.datos = item
+            this.nameUpdate = this.datos.name
+            this.lastnameUpdate = this.datos.lastname
+            this.passwordUpdate = this.datos.password
+            this.openDialogUpdate = true
+        },
+        async actualizaUsuario () {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    'Access-Control-Allow-Origin': '*'
+                }
+            }
+                const usuarioNuevo = {
+                id: this.datos._id,
+                name: this.nameUpdate,
+                lastname: this.lastnameUpdate,
+                email: this.datos.email,
+                password: this.passwordUpdate
+
+            }
+                await this.$axios.post('/user/updateuser', usuarioNuevo, config)
+                    .then((res) => {
+                    console.log(res)
+                    if(res.data.message === 'Usuario Actualizado'){
+                        this.loadUsers()
+                        this.openDialogUpdate = false
+                    }
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
         }
     }
 }
