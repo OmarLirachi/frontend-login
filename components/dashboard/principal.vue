@@ -62,6 +62,12 @@
                     placeholder="Password:" 
                     label="Password">
                     </v-text-field>
+                    <v-text-field 
+                    v-model="number"
+                    type="text" 
+                    placeholder="Number:" 
+                    label="Number">
+                    </v-text-field>
                 </v-form>
             </v-card-text>
 
@@ -171,16 +177,10 @@ export default{
                     value: 'email'
                 },
                 {
-                    text: 'Fecha de Creacion',
+                    text: 'Numero',
                     align: 'center',
                     sortable: true,
-                    value: 'date'
-                },
-                {
-                    text: 'Acciones',
-                    align: 'center',
-                    sortable: true,
-                    value: 'actions'
+                    value: 'number'
                 }
             ],
             openDialog: false,
@@ -210,7 +210,7 @@ export default{
                     'Access-Control-Allow-Origin': '*'
                 }
             }
-            await this.$axios.get('/user/getallusers', config)
+            await this.$axios.get('/usuarios', config)
                 .then((res) => {
                     //console.log('res', res)
                     if(res.data.message === 'Usuarios'){
@@ -235,9 +235,10 @@ export default{
                 name: this.name,
                 lastname: this.lastname,
                 email: this.email,
-                password: this.password
+                password: this.password,
+                number:this.number
             }
-            await this.$axios.post('/user/register', usuarioNuevo, config)
+            await this.$axios.post('/registro', usuarioNuevo, config)
                 .then((res) => {
                     console.log('res',res)
                     if(res.data.error === null){

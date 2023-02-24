@@ -70,7 +70,7 @@ export default {
         },
         endpoints: {
           login: {
-            url: '/user/login',
+            url: '/login',
             method: 'post'
           },
           user: false
@@ -82,7 +82,7 @@ export default {
   },
 
   axios: {
-    baseURL: "http://localhost:3005/api",
+    baseURL: "http://localhost:5010",
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
