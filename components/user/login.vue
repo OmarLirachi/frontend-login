@@ -62,7 +62,7 @@ export default {
                     data: sendData
                 }).then( async (res)=> {
                     console.log('respuesta del back', res)
-                    if (res.data.error == null) {
+                    if (res.data.alert !== 'Correo no registrado') {
                         this.$router.push('/dashboard')
                     }
                 }).catch((error)=> {
