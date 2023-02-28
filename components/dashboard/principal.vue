@@ -181,6 +181,12 @@ export default{
                     align: 'center',
                     sortable: true,
                     value: 'number'
+                },
+                {
+                    text: 'Acciones',
+                    align: 'center',
+                    sortable: true,
+                    value: 'actions'
                 }
             ],
             openDialog: false,
@@ -188,7 +194,7 @@ export default{
             lastname: '',
             email: '',
             password: '',
-            idEraseUser: '',
+            emailEraseUser: '',
             openDialogErase: false,
             newemail: '',
             admin: 'adminOmarin',
@@ -241,7 +247,7 @@ export default{
             await this.$axios.post('/registro', usuarioNuevo, config)
                 .then((res) => {
                     console.log('res',res)
-                    if(res.data.error === null){
+                    if(res.data.message === 'Correcto'){
                         this.openDialog = false
                         this.loadUsers()
                     }
@@ -259,12 +265,12 @@ export default{
                 }
             }
                 const usuario = {
-                id: this.idEraseUser
+                email: this.emailEraseUser
             }
-                await this.$axios.post('/user/eraseusers', usuario, config)
+                await this.$axios.post('/delete', usuario, config)
                     .then((res) => {
                     console.log(res)
-                    if(res.data.message === 'Usuario Borrado'){
+                    if(res.data.alert === 'success'){
                         this.loadUsers()
                         this.openDialogErase = false
                     }
@@ -275,7 +281,7 @@ export default{
             }  
         },
         dialogUser(item) {
-            this.idEraseUser = item._id
+            this.emailEraseUser = item.email
             this.admin = item.name
             this.openDialogErase = true
         },
