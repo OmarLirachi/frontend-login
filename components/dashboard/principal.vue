@@ -126,10 +126,10 @@
                     label="LastName">
                     </v-text-field>
                     <v-text-field 
-                    v-model="passwordUpdate"
-                    type="password" 
-                    placeholder="Password:" 
-                    label="Password">
+                    v-model="numberUpdate"
+                    type="text" 
+                    placeholder="Numero:" 
+                    label="Number">
                     </v-text-field>
                 </v-form>
             </v-card-text>
@@ -202,6 +202,7 @@ export default{
             nameUpdate: '',
             lastnameUpdate: '',
             passwordUpdate: '',
+            numberUpdate: '',
             datos: {}
         }
     },
@@ -290,6 +291,7 @@ export default{
             this.nameUpdate = this.datos.name
             this.lastnameUpdate = this.datos.lastname
             this.passwordUpdate = this.datos.password
+            this.numberUpdate = this.datos.number
             this.openDialogUpdate = true
         },
         async actualizaUsuario () {
@@ -300,17 +302,16 @@ export default{
                 }
             }
                 const usuarioNuevo = {
-                id: this.datos._id,
                 name: this.nameUpdate,
                 lastname: this.lastnameUpdate,
                 email: this.datos.email,
-                password: this.passwordUpdate
+                number: this.numberUpdate
 
             }
-                await this.$axios.post('/user/updateuser', usuarioNuevo, config)
+                await this.$axios.post('/update', usuarioNuevo, config)
                     .then((res) => {
                     console.log(res)
-                    if(res.data.message === 'Usuario Actualizado'){
+                    if(res.data.alert === 'success'){
                         this.loadUsers()
                         this.openDialogUpdate = false
                     }
